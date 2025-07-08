@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const twilio = require('twilio');
 const { createClient } = require('@supabase/supabase-js');
+const path = require('path');
 const OpenAI = require('openai');
 const stripe = require('stripe');
 const axios = require('axios');
