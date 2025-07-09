@@ -404,6 +404,7 @@ app.delete('/api/faqs/:id', async (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
+
 // Test endpoints
 app.get('/api/health', (req, res) => {
   res.json({ 
