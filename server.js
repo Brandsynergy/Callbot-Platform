@@ -8,6 +8,13 @@ const stripe = require('stripe');
 const axios = require('axios');
 require('dotenv').config();
 
+console.log('=== SERVER STARTUP DEBUG ===');
+console.log('Node version:', process.version);
+console.log('PORT:', process.env.PORT);
+console.log('OpenAI Key exists:', !!process.env.OPENAI_API_KEY);
+console.log('Supabase URL exists:', !!process.env.SUPABASE_URL);
+console.log('Starting server initialization...');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
