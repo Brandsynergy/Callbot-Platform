@@ -404,6 +404,54 @@ app.delete('/api/faqs/:id', async (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
+// Test endpoints
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'CallBot server is running!',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/test-ai', async (req, res) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: "Say hello from CallBot!" }],
+      max_tokens: 50
+    });
+    
+    res.json({ 
+      success: true, 
+      ai_response: response.choices[0].message.content 
+    });
+  } catch (error) {
+    res.json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
+app.get('/api/test-database', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('count')
+      .limit(1);
+    
+    res.json({ 
+      success: true, 
+      message: 'Database connected!',
+      data: data 
+    });
+  } catch (error) {
+    res.json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
 
 app.listen(port, () => {
   console.log(`CallBot server running on port ${port}`);
