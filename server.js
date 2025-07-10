@@ -461,6 +461,9 @@ app.get('/api/test-database', async (req, res) => {
   }
 });
 
-app.listen(port,'0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`CallBot server running on port ${port}`);
+  console.log('✅ Server is ready to accept connections!');
+}).on('error', (err) => {
+  console.error('❌ Server error:', err);
 });
