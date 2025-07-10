@@ -414,11 +414,18 @@ app.get('*', (req, res) => {
 
 // Test endpoints
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    message: 'CallBot server is running!',
-    timestamp: new Date().toISOString()
-  });
+  try {
+    console.log('✅ Health check requested');
+    res.json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      message: 'CallBot API is running'
+    });
+    console.log('✅ Health check response sent');
+  } catch (error) {
+    console.error('❌ Health check error:', error);
+    res.status(500).json({ error: 'Health check failed' });
+  }
 });
 
 app.get('/api/test-ai', async (req, res) => {
